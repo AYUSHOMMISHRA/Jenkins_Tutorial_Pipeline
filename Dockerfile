@@ -15,7 +15,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY . /var/www/html
+ADD index.html /var/www/html
 # Expose Apache HTTP port
 EXPOSE 80
 
