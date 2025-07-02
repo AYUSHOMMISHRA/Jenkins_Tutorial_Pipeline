@@ -1,12 +1,12 @@
 FROM ubuntu:22.04
 
-# Prevent interactive prompt during build (for tzdata)
-ARG DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Kolkata
 
-# Use reliable mirrors and install only essential packages
 RUN sed -i 's|http://archive.ubuntu.com/ubuntu/|http://mirror.math.princeton.edu/pub/ubuntu/|g' /etc/apt/sources.list && \
     apt-get update && \
     apt-get install -y tzdata apache2 curl wget && \
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
